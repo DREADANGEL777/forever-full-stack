@@ -2,6 +2,7 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { backendUrl, currency } from "../App"
 import { toast } from "react-toastify"
+import { Link } from "react-router-dom"
 
 const List = ({ token }) => {
   const [list, setList] = useState([])
@@ -39,6 +40,25 @@ const List = ({ token }) => {
     }
   }
 
+  // const editProduct = async (id) => {
+  //   try {
+  //     // const response = await axios.post(
+  //     //   backendUrl + "/api/product/edit",
+  //     //   { id },
+  //     //   { headers: { token } },
+  //     // )
+
+  //     const response = await axios.post(
+  //       backendUrl + "/api/product/edit",
+  //       { id },
+  //       { headers: { token } },
+  //     )
+  //   } catch (error) {
+  //     console.log(error)
+  //     toast.error(error.message)
+  //   }
+  // }
+
   useEffect(() => {
     fetchList()
   }, [])
@@ -65,12 +85,20 @@ const List = ({ token }) => {
               {currency}
               {item.price}
             </p>
-            <p
-              onClick={() => removeProduct(item._id)}
-              className="text-right md:text-center cursor-pointer text-lg"
-            >
-              X
-            </p>
+            <div className="flex items-center justify-center gap-2">
+              <p
+                onClick={() => removeProduct(item._id)}
+                className="text-right md:text-center cursor-pointer text-lg"
+              >
+                X
+              </p>
+              <Link
+                to={`/edit/${item._id}`}
+                className="text-right md:text-center cursor-pointer text-lg"
+              >
+                ✎
+              </Link>
+            </div>
           </div>
         ))}
       </div>

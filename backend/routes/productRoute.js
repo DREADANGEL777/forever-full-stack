@@ -3,6 +3,7 @@ import {
   addProduct,
   listProducts,
   removeProduct,
+  editProduct,
   singleProduct,
 } from "../controllers/productController.js"
 import upload from "../middleware/multer.js"
@@ -19,9 +20,19 @@ productRouter.post(
     { name: "image3", maxCount: 1 },
     { name: "image4", maxCount: 1 },
   ]),
-  addProduct
+  addProduct,
 )
-productRouter.post("/remove",adminAuth , removeProduct)
+productRouter.post("/remove", adminAuth, removeProduct)
+productRouter.put(
+  "/edit/:productId",
+  upload.fields([
+    { name: "image1", maxCount: 1 },
+    { name: "image2", maxCount: 1 },
+    { name: "image3", maxCount: 1 },
+    { name: "image4", maxCount: 1 },
+  ]),
+  editProduct,
+)
 productRouter.post("/single", singleProduct)
 productRouter.get("/list", listProducts)
 
